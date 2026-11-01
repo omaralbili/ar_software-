@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات القياس وبطاقة الملاحظة الأدائية - إنتاج برمجيات الواقع المعزز</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap');
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background-color: #f8f9fa;
+            color: #2b2d42;
+        }
+        .header-section {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2.5rem 0;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        .nav-tabs .nav-link {
+            font-weight: bold;
+            color: #495057;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 20px;
+        }
+        .nav-tabs .nav-link.active {
+            background-color: #1e3c72;
+            color: white !important;
+            border-color: #1e3c72;
+        }
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        .card-header-custom {
+            background-color: #f1f4f9;
+            border-bottom: 2px solid #e2e8f0;
+            font-weight: 700;
+            color: #1e3c72;
+        }
+        .table-custom th {
+            background-color: #2a5298;
+            color: white;
+            text-align: center;
+            vertical-align: middle;
+        }
+        .table-custom td {
+            vertical-align: middle;
+        }
+        .badge-score {
+            font-size: 0.9rem;
+            padding: 6px 12px;
+            border-radius: 6px;
+        }
+        .stat-card {
+            background: white;
+            border-right: 5px solid #2a5298;
+            padding: 1.2rem;
+            border-radius: 8px;
+        }
+        .skill-header {
+            background-color: #e2e8f0;
+            font-weight: bold;
+            color: #1e3c72;
+        }
+        .subskill-header {
+            background-color: #edf2f7;
+            font-weight: 600;
+            color: #2d3748;
+        }
+        @media print {
+            .no-print, .header-section { display: none !important; }
+            body { background-color: #fff !important; color: #000 !important; }
+            .container { max-width: 100% !important; width: 100% !important; padding: 0 !important; margin: 0 !important; }
+            .card { box-shadow: none !important; border: 1px solid #ddd !important; margin-bottom: 2rem !important; }
+            /* إظهار التبويب النشط فقط أو التبويب المحدد للطباعة */
+            body:not(.print-all) .tab-pane { display: none !important; }
+            body:not(.print-all) .tab-pane.active { display: block !important; opacity: 1 !important; visibility: visible !important; }
+            body.print-all .tab-pane { display: block !important; opacity: 1 !important; visibility: visible !important; page-break-after: always; margin-bottom: 30px; }
+            .table-responsive { overflow: visible !important; }
+            table { page-break-inside: auto; }
+            tr { page-break-inside: avoid; page-break-after: auto; }
+            thead { display: table-header-group; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Section -->
+    <header class="header-section text-center">
+        <div class="container">
+            <h1 class="fw-bold mb-2"><i class="bi bi-box-seam me-2"></i>منهجية وأدوات قياس بحث إنتاج برمجيات الواقع المعزز (AR)</h1>
+            <p class="lead mb-0">عينة من طلاب كلية التربية النوعية - جامعة المنصورة (العام الدراسي 2025/2026)</p>
+        </div>
+    </header>
+
+    <div class="container pb-5">
+        
+        <!-- Summary Cards -->
+        <div class="row g-3 mb-4 no-print">
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm">
+                    <div class="text-muted small">الاختبار التحصيلي</div>
+                    <div class="h4 fw-bold text-primary mb-0">68 مفردة / 68 درجة</div>
+                    <div class="small text-success mt-1"><i class="bi bi-check-circle-fill"></i> الثبات: 0.89 (تطبيق وإعادة)</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm" style="border-right-color: #28a745;">
+                    <div class="text-muted small">بطاقة الملاحظة الأدائية</div>
+                    <div class="h4 fw-bold text-success mb-0">207 مؤشر / 621 درجة</div>
+                    <div class="small text-success mt-1"><i class="bi bi-check-circle-fill"></i> الثبات: 0.92 (ألفا) / كوبر %91</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm" style="border-right-color: #ffc107;">
+                    <div class="text-muted small">مقياس الوعي الرقمي</div>
+                    <div class="h4 fw-bold text-warning mb-0">41 عبارة / 164 درجة</div>
+                    <div class="small text-success mt-1"><i class="bi bi-check-circle-fill"></i> الثبات: 0.75 (ألفا كرونباخ)</div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card shadow-sm" style="border-right-color: #17a2b8;">
+                    <div class="text-muted small">بطاقة تقييم المنتج</div>
+                    <div class="h4 fw-bold text-info mb-0">88 مؤشراً / 176 درجة</div>
+                    <div class="small text-success mt-1"><i class="bi bi-check-circle-fill"></i> الثبات: 0.87 (ألفا كرونباخ)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="d-flex justify-content-between align-items-center mb-4 no-print flex-wrap gap-2">
+            <ul class="nav nav-tabs mb-0 border-bottom-0" id="toolsTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="observation-tab" data-bs-toggle="tab" data-bs-target="#observation" type="button" role="tab"><i class="bi bi-card-checklist me-2"></i>بطاقة الملاحظة (207 مؤشر)</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="achievement-tab" data-bs-toggle="tab" data-bs-target="#achievement" type="button" role="tab"><i class="bi bi-file-earmark-text me-2"></i>جدول مواصفات الاختبار المعرفي</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="awareness-tab" data-bs-toggle="tab" data-bs-target="#awareness" type="button" role="tab"><i class="bi bi-phone-vibrate me-2"></i>مقياس الوعي الرقمي</button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="product-tab" data-bs-toggle="tab" data-bs-target="#product" type="button" role="tab"><i class="bi bi-award me-2"></i>بطاقة تقييم المنتج النهائي</button>
+                </li>
+            </ul>
+            <div>
+                <button class="btn btn-outline-dark" onclick="printAll()"><i class="bi bi-printer-fill me-1"></i> طباعة جميع الأدوات معاً</button>
+            </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="tab-content" id="toolsTabContent">
+            
+            <!-- TAB 1: Observation Checklist (207 Indicators Detailed Structure) -->
+            <div class="tab-pane fade show active" id="observation" role="tabpanel">
+                <div class="card">
+                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-card-checklist me-2"></i>بطاقة ملاحظة الجانب الأدائي لمهارات إنتاج برمجيات الواقع المعزز (12 مهارة رئيسة - 16 فرعية - 207 مؤشر)</h5>
+                        <button class="btn btn-sm btn-primary no-print" onclick="printTab('observation')"><i class="bi bi-printer me-1"></i> طباعة البطاقة</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="alert alert-info py-2">
+                            <strong>تعليمات التقدير:</strong> ممتاز/أدى بمهارة (3 درجات) - متوسط/أدى بحد أدنى (درجتان) - ضعيف/أدى بأخطاء (درجة واحدة) - لم يؤدِ (صفر). <br>
+                            <strong>الدرجة الكلية العظمى = 207 مؤشر × 3 درجات = 621 درجة.</strong>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover table-custom">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 5%;">م</th>
+                                        <th style="width: 65%;">المهارات الرئيسة والفرعية ومؤشرات الأداء الأدائي</th>
+                                        <th style="width: 7%;">ممتاز (3)</th>
+                                        <th style="width: 7%;">متوسط (2)</th>
+                                        <th style="width: 7%;">ضعيف (1)</th>
+                                        <th style="width: 7%;">لم يؤدِ (0)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Skill 1 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة الأولى: التخطيط وإعداد السيناريو لبرمجية الواقع المعزز (المؤشرات من 1 إلى 18)</td>
+                                    </tr>
+                                    <tr class="subskill-header">
+                                        <td colspan="6">1/1: مهارة التخيل الفضائي وصياغة سيناريو التفاعل الرقمي (10 مؤشرات)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>يحدد الأهداف التعليمية المعرفية والمهارية للرسوم ثلاثية الأبعاد بدقة.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>يرسم مخططاً انسيابياً (Flowchart) لخطوات تفاعل المستخدم مع الكاميرا.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>يحدد نوع بيئة الواقع المعزز المستهدفة (Markered AR أم Markerless AR).</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>4-10</td>
+                                        <td><em>[يتبع 7 مؤشرات تفصيلية لتحديد المساقط والشاشات والتغذية الراجعة بالسيناريو...]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <tr class="subskill-header">
+                                        <td colspan="6">1/2: مهارة تجهيز وجمع الأصول والوسائط الرقمية (8 مؤشرات)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>يجمع الصور المستهدفة لاستخدامها كـ (Image Targets) بدقة ألوان متباينة.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>12-18</td>
+                                        <td><em>[يتبع 7 مؤشرات تفصيلية لتنظيم المجلدات وفحص جودة الأصوات والتكستشرز...]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 2 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة الثانية: النمذجة ثلاثية الأبعاد (3D Modeling) للعناصر (المؤشرات من 19 إلى 42)</td>
+                                    </tr>
+                                    <tr class="subskill-header">
+                                        <td colspan="6">2/1: بناء الأشكال الأساسية وتحوير الشبكات البنائية Polygons (14 مؤشراً)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>19</td>
+                                        <td>يتحكم في إحداثيات المحاور (X, Y, Z) بدقة داخل برنامج النمذجة (Blender/3ds Max).</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>20</td>
+                                        <td>يجري عمليات التنعيم والحذف وإعادة تحسين المضلعات (Polygon Reduction) لتناسب الموبايل.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>21-32</td>
+                                        <td><em>[يتبع 12 مؤشراً لعمليات Extrude, Bevel, Subdivide وتقسيم العناصر...]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <tr class="subskill-header">
+                                        <td colspan="6">2/2: مهارة ضبط المقاييس والنسب المجسمة (10 مؤشرات)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>33-42</td>
+                                        <td><em>[تشمل 10 مؤشرات لضبط النسبة والتناسب الأبعاد بالنسبة للحجم الحقيقي للأشياء]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 3 & 4 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة الثالثة والرابعة: الإكساء (Texturing) والإضاءة والكاميرا (المؤشرات 43 إلى 75)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>43</td>
+                                        <td>يطبق خريطة الأشعة فوق البنفسجية UV Unwrapping بشكل صحيح ودون تداخل.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>44</td>
+                                        <td>يربط الخرائط اللونية (Albedo, Normal, Roughness) بالمواد ثلاثية الأبعاد.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>45-75</td>
+                                        <td><em>[تتضمن 31 مؤشراً لضبط الإضاءات المحيطة Spot Light, Directional Light وظلال العناصر]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 5 & 6 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة الخامسة والسادسة: ضبط المحركات واستيراد الملفات بمحرك Unity (المؤشرات 76 إلى 110)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>76</td>
+                                        <td>يستورد المجسمات بصيغة FBX أو GLTF دون مفقودات في التكستشر.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>77-110</td>
+                                        <td><em>[تتضمن 34 مؤشراً لضبط الحزم وPrefab واختبار المساقط وتدقيق الرسومات]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 7 & 8 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة السابعة والثامنة: إعداد حزمة AR Foundation / Vuforia ومحفزات التتبع (المؤشرات 111 إلى 150)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>111</td>
+                                        <td>ينشئ حساب وقاعدة بيانات Target Manager على منصة التطوير.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>112</td>
+                                        <td>يقيّم جودة نقاط التتبع (Feature Points) للمستهدف ليضمن حصوله على 5 نجوم.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>113-150</td>
+                                        <td><em>[تتضمن 38 مؤشراً لإسقاط AR Camera وإعداد المكونات الفيزيائية Colliders]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 9 & 10 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة التاسعة والعاشرة: البرمجة التفاعلية (C# Scripting) وواجهة المستخدم UI (المؤشرات 151 إلى 185)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>151</td>
+                                        <td>يكتب سكريبت برمجي C# للتفاعل مع اللمس على الشاشة (Raycasting).</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>152</td>
+                                        <td>يربط الحركة والتحوير (Scale/Rotate) بإيماءات الأصابع الأصيلة (Pinch to Zoom).</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>153-185</td>
+                                        <td><em>[تتضمن 33 مؤشراً لتصميم الأزرار والإنذارات والملاحظات الصوتية والمحتوى النصي]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <!-- Skill 11 & 12 -->
+                                    <tr class="skill-header">
+                                        <td colspan="6">المهارة الرئيسة الحادية عشرة والثانية عشرة: المعايرة، التصدير APK واختبار الأداء الميداني (المؤشرات 186 إلى 207)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>186</td>
+                                        <td>يضبط إعدادات Build Settings واختيار منصة Android/iOS بشكل صحيح.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>187</td>
+                                        <td>يحدد الحد الأدنى لمستوى SDK المطلوب لتشغيل حزم الواقع المعزز.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>188</td>
+                                        <td>يُصدر حزمة التطبيق النهائية في صورة ملف APK حقيقي وجاهز للتثبيت.</td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>189-207</td>
+                                        <td><em>[تتضمن 19 مؤشراً نهائياً لسرعة الاستجابة، استقرار المجسم فوق الورقة، واستمرار التتبع]</em></td>
+                                        <td></td><td></td><td></td><td></td>
+                                    </tr>
+
+                                    <tr class="table-dark text-center fw-bold">
+                                        <td colspan="2">إجمالي الـ 207 مؤشر أدائي</td>
+                                        <td colspan="4">الدرجة الكلية النهائية العظمى = 621 درجة</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 2: Achievement Test Table of Specs -->
+            <div class="tab-pane fade" id="achievement" role="tabpanel">
+                <div class="card">
+                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-file-earmark-text me-2"></i>جدول مواصفات الاختبار التحصيلي المعرفي (68 مفردة)</h5>
+                        <button class="btn btn-sm btn-primary no-print" onclick="printTab('achievement')"><i class="bi bi-printer me-1"></i> طباعة الجدول</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped text-center align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>الموديول التعليمي</th>
+                                    <th>الوزن النسبي للمحتوى</th>
+                                    <th>التذكر (30%)</th>
+                                    <th>الفهم (40%)</th>
+                                    <th>التطبيق (30%)</th>
+                                    <th>إجمالي المفردات</th>
+                                    <th>الدرجة الكلية</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>الموديول الأول: أساسيات الواقع المعزز</td>
+                                    <td>18%</td>
+                                    <td>4 أسئلة</td>
+                                    <td>5 أسئلة</td>
+                                    <td>3 أسئلة</td>
+                                    <td>12 مفردة</td>
+                                    <td>12 درجة</td>
+                                </tr>
+                                <tr>
+                                    <td>الموديول الثاني: تصميم العناصر ثلاثية الأبعاد</td>
+                                    <td>26%</td>
+                                    <td>5 أسئلة</td>
+                                    <td>7 أسئلة</td>
+                                    <td>6 أسئلة</td>
+                                    <td>18 مفردة</td>
+                                    <td>18 درجة</td>
+                                </tr>
+                                <tr>
+                                    <td>الموديول الثالث: منصات ومحركات التطوير</td>
+                                    <td>29%</td>
+                                    <td>6 أسئلة</td>
+                                    <td>8 أسئلة</td>
+                                    <td>6 أسئلة</td>
+                                    <td>20 مفردة</td>
+                                    <td>20 درجة</td>
+                                </tr>
+                                <tr>
+                                    <td>الموديول الرابع: نشر وتصدير البرمجية</td>
+                                    <td>27%</td>
+                                    <td>5 أسئلة</td>
+                                    <td>7 أسئلة</td>
+                                    <td>6 أسئلة</td>
+                                    <td>18 مفردة</td>
+                                    <td>18 درجة</td>
+                                </tr>
+                                <tr class="fw-bold table-primary">
+                                    <td>الإجمالي الكلي</td>
+                                    <td>100%</td>
+                                    <td>20 مفردة</td>
+                                    <td>27 مفردة</td>
+                                    <td>21 مفردة</td>
+                                    <td>68 مفردة</td>
+                                    <td>68 درجة</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Digital Awareness Scale -->
+            <div class="tab-pane fade" id="awareness" role="tabpanel">
+                <div class="card">
+                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-phone-vibrate me-2"></i>مقياس الوعي الرقمي (41 عبارات - ليكرت الخماسي - 164 درجة)</h5>
+                        <button class="btn btn-sm btn-primary no-print" onclick="printTab('awareness')"><i class="bi bi-printer me-1"></i> طباعة المقياس</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered align-middle">
+                            <thead class="table-dark text-center">
+                                <tr>
+                                    <th>م</th>
+                                    <th>أبعاد مقياس الوعي الرقمي</th>
+                                    <th>عدد العبارات</th>
+                                    <th>أرقام العبارات</th>
+                                    <th>معامل ثبات ألفا كرونباخ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">1</td>
+                                    <td>البعد الأول: الوعي بالتقنيات والبرمجيات الحديثة للواقع المعزز</td>
+                                    <td class="text-center">14 عبارة</td>
+                                    <td class="text-center">1 - 14</td>
+                                    <td class="text-center">0.78</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">2</td>
+                                    <td>البعد الثاني: الأمان والمسؤولية الرقمية أثناء التطوير</td>
+                                    <td class="text-center">13 عبارة</td>
+                                    <td class="text-center">15 - 27</td>
+                                    <td class="text-center">0.73</td>
+                                </tr>
+                                <tr>
+                                    <td class="text-center">3</td>
+                                    <td>البعد الثالث: الاستخدام الرقمي التشاركي والإنتاجي في التعليم</td>
+                                    <td class="text-center">14 عبارة</td>
+                                    <td class="text-center">28 - 41</td>
+                                    <td class="text-center">0.76</td>
+                                </tr>
+                                <tr class="table-warning fw-bold text-center">
+                                    <td colspan="2">المقياس ككل</td>
+                                    <td>41 عبارة</td>
+                                    <td>1 - 41</td>
+                                    <td>0.75 (ثبات ممتاز)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Final Product Assessment Card -->
+            <div class="tab-pane fade" id="product" role="tabpanel">
+                <div class="card">
+                    <div class="card-header card-header-custom d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="bi bi-award me-2"></i>بطاقة تقييم جودة المنتج النهائي (تطبيقات Reality Apps)</h5>
+                        <button class="btn btn-sm btn-primary no-print" onclick="printTab('product')"><i class="bi bi-printer me-1"></i> طباعة البطاقة</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered text-center align-middle">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>المحور الرئيس</th>
+                                    <th>عدد المعايير</th>
+                                    <th>عدد المؤشرات</th>
+                                    <th>الدرجة العظمى (سلم ثنائي: 2 درجة)</th>
+                                    <th>معامل الثبات (ألفا)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>المحور الأول: المعايير التربوية والوظيفية للبرمجية</td>
+                                    <td>5 معايير</td>
+                                    <td>38 مؤشراً</td>
+                                    <td>76 درجة</td>
+                                    <td>0.85</td>
+                                </tr>
+                                <tr>
+                                    <td>المحور الثاني: المعايير الفنية والتقنية والواقع المعزز</td>
+                                    <td>7 معايير</td>
+                                    <td>50 مؤشراً</td>
+                                    <td>100 درجة</td>
+                                    <td>0.89</td>
+                                </tr>
+                                <tr class="table-success fw-bold">
+                                    <td>الإجمالي العام للبطاقة</td>
+                                    <td>12 معياراً</td>
+                                    <td>88 مؤشراً</td>
+                                    <td>176 درجة</td>
+                                    <td>0.87</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function printTab(tabId) {
+            document.body.classList.remove('print-all');
+            
+            // Switch to requested tab first to ensure Bootstrap classes update
+            const triggerEl = document.querySelector(`button[data-bs-target="#${tabId}"]`);
+            if (triggerEl) {
+                const tab = bootstrap.Tab.getOrCreateInstance(triggerEl);
+                tab.show();
+            }
+
+            // Ensure active class on target pane
+            document.querySelectorAll('.tab-pane').forEach(el => {
+                if (el.id === tabId) {
+                    el.classList.add('show', 'active');
+                } else {
+                    el.classList.remove('show', 'active');
+                }
+            });
+
+            // Small timeout to allow styles/DOM update before print dialog
+            setTimeout(() => {
+                window.print();
+            }, 150);
+        }
+
+        function printAll() {
+            document.body.classList.add('print-all');
+            setTimeout(() => {
+                window.print();
+                document.body.classList.remove('print-all');
+            }, 150);
+        }
+    </script>
+</body>
+</html>
